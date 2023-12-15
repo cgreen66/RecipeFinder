@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./dist/main.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.0/gsap.min.js"></script>
+    <script src="./dist/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.0/TextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/Physics2DPlugin.min.js"></script>
+    <title>Christopher's Recipe Finder</title>
+</head>
+<body>
+    <header>
+        <h1 class="title">
+            <span>C</span><span>h</span><span>r</span><span>i</span><span>s</span><span>t</span><span>o</span><span>p</span><span>h</span><span>e</span><span>r</span><span>'</span><span>s</span>
+            <span>R</span><span>e</span><span>c</span><span>i</span><span>p</span><span>e</span>
+            <span>F</span><span>i</span><span>n</span><span>d</span><span>e</span><span>r</span>
+        </h1>          
+    </header>
+    <main>
+        
+        <section id="search-section">
+            <h2>Find Recipes</h2>
+            <input type="text" id="ingredient-input" placeholder="Enter ingredients..." aria-label="Ingredients">
+            <button id="search-button">Search</button>
+            <button id="clear-button">Clear</button>
+            <div id="filters">
+                <div class="filter-group">
+                    <label for="meal-type">Meal Type:</label>
+                    <select id="meal-type">
+                        <option value="">Any</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="brunch">Brunch</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="dinner">Dinner</option>
+                        <option value="snack">Snack</option>
+                    </select>
+                </div>
+            
+                <div class="filter-group">
+                    <label for="health-label">Health Label:</label>
+                    <select id="health-label" name="health">
+                        <option value="">Select Label</option>
+                        <option value="dairy-free">Dairy-Free</option>
+                        <option value="gluten-free">Gluten-Free</option>
+                        <option value="keto-friendly">Keto-Friendly</option>
+                        <option value="kosher">Kosher</option>
+                        <option value="low-sugar">Low Sugar</option>
+                        <option value="paleo">Paleo</option>
+                        <option value="peanut-free">Peanut-Free</option>
+                        <option value="pescatarian">Pescatarian</option>
+                        <option value="pork-free">Pork-Free</option>
+                        <option value="red-meat-free">Red-Meat-Free</option>
+                        <option value="shellfish-free">Shellfish-Free</option>
+                        <option value="tree-nut-free">Tree-Nut-Free</option>
+                        <option value="vegan">Vegan</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="wheat-free">Wheat-Free</option>
+                    </select>
+                </div>
+            
+                <div class="filter-group">
+                    <label for="cuisine-type">Cuisine Type:</label>
+                    <select id="cuisine-type">
+                        <option value="">Select Cuisine</option>
+                        <option value="american">American</option>
+                        <option value="asian">Asian</option>
+                        <option value="british">British</option>
+                        <option value="caribbean">Caribbean</option>
+                        <option value="central europe">Central Europe</option>
+                        <option value="chinese">Chinese</option>
+                        <option value="eastern europe">Eastern Europe</option>
+                        <option value="french">French</option>
+                        <option value="greek">Greek</option>
+                        <option value="indian">Indian</option>
+                        <option value="italian">Italian</option>
+                        <option value="japanese">Japanese</option>
+                        <option value="korean">Korean</option>
+                        <option value="kosher">Kosher</option>
+                        <option value="mediterranean">Mediterranean</option>
+                        <option value="mexican">Mexican</option>
+                        <option value="middle eastern">Middle Eastern</option>
+                        <option value="nordic">Nordic</option>
+                        <option value="south american">South American</option>
+                        <option value="south east asian">South East Asian</option>
+                        <option value="world">World</option>
+                    </select>
+                    
+                </div>
+            </div>
+        
+            
+        </section>
+        <div id="loading-indicator" style="display: none;">Loading...</div>
+        <div id="error-message" style="display: none;">Error loading recipes.</div>
+        <section id="recipes-section">
+          <h2>Recipes</h2>
+        </section>
+
+        </main>
+        <footer>
+        <p>&copy; Christopher Green</p>
+    </footer>
+    <script src="./dist/main.js"></script>
+</body>
+</html>
