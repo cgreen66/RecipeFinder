@@ -161,6 +161,21 @@ function displayRecipes(recipes) {
         recipeElement.dataset.ingredients = recipe.ingredientLines.join(', ');
 
         recipesSection.appendChild(recipeElement);
+
+        const macronutrientsBtn = document.createElement('button');
+        macronutrientsBtn.textContent = 'Macronutrients';
+        macronutrientsBtn.className = 'macronutrients-btn';
+        macronutrientsBtn.addEventListener('click', () => showMacronutrients(index));
+
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = 'button-container';
+        buttonContainer.appendChild(ingredientsBtn);
+        buttonContainer.appendChild(macronutrientsBtn);
+
+        recipeElement.querySelector('.recipe-content').appendChild(buttonContainer);
+
+        // Store macronutrient data
+        recipeElement.dataset.macronutrients = JSON.stringify(recipe.totalNutrients);
     });
 
     // Animate recipe cards using GSAP's stagger feature
@@ -264,3 +279,33 @@ document.querySelectorAll('#search-button, #clear-button').forEach(button => {
     });
 });
 
+function showMacronutrients(index) {
+    const recipeElement = document.querySelectorAll('.recipe-card')[index];
+    const macronutrients = JSON.parse(recipeElement.dataset.macronutrients);
+    const macronutrientsContent = formatMacronutrients(macronutrients);
+    showModal(macronutrientsContent);
+}
+
+function formatMacronutrients(macronutrients) {
+    // Define a list of macronutrients to display
+    const nutrientsToShow = {
+        "ENERC_KCAL": "Calories",
+        "PROCNT": "Protein",
+        "FAT": "Total Fat",
+        "FASAT": "Saturated Fat",
+        "CHOCDF": "Carbohydrates",
+        "FIBTG": "Fiber",
+        "SUGAR": "Sugars",
+        "CHOLE": "Cholesterol",
+        "NA": "Sodium"
+    };
+
+    let content = '<ul class="macronutrient-list">';
+    for (const key in nutrientsToShow) {
+        if (macronutrients[key]) {
+            content += `<li>${nutrientsToShow[key]}: ${macronutrients[key].quantity.toFixed(2)} ${macronutrients[key].unit}</li>`;
+        }
+    }
+    content += '</ul>';
+    return content;
+}
