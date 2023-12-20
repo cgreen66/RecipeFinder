@@ -126,7 +126,7 @@ function fetchRecipes(query, health, mealType, cuisineType) {
             console.error('Fetch error:', error);
             errorMessage.textContent = 'Failed to load recipes. Please try again.';
             errorMessage.style.display = 'block';
-            recipesSection.innerHTML = ''; // Clear previous recipes
+            recipesSection.innerHTML = '';
             loadingIndicator.style.display = 'none';
         });
 }

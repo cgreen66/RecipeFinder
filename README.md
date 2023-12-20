@@ -28,30 +28,134 @@ Explore a wide variety of delicious recipes with Christopher's Recipe Finder. Tr
 
 ### Dynamic Recipe Search Functionality
 ```javascript
+// Function to fetch recipes based on user inputs
 function fetchRecipes(query, health, mealType, cuisineType) {
-    const apiUrl = 'https://api.edamam.com/api/recipes/v2';
-    const apiParams = new URLSearchParams({ q: query, app_id: apiId, app_key: apiKey, type: 'public', health, mealType, cuisineType });
+    // API credentials
+    const apiId = 'YOUR_API_ID';
+    const apiKey = 'YOUR_API_KEY';
+    // Constructing the URL for the API call
+    let url = new URL('https://api.edamam.com/api/recipes/v2');
+    // Defining parameters for the API call
+    let params = {
+        q: query, // the search query
+        app_id: apiId,
+        app_key: apiKey,
+        type: 'public', // type of the API call
+        health: health, // health filters
+        mealType: mealType, // meal type filters
+        cuisineType: cuisineType // cuisine type filters
+    };
 
-    fetch(`${apiUrl}?${apiParams}`)
-        .then(response => response.json())
-        .then(data => displayRecipes(data.hits))
-        .catch(error => console.error('Fetch error:', error));
+    // Appending the parameters to the API URL
+    Object.keys(params).forEach(key => {
+        if (params[key]) {
+            url.searchParams.append(key, params[key]);
+        }
+    });
+
+    // Selecting page elements for user feedback
+    const loadingIndicator = document.getElementById('loading-indicator');
+    const errorMessage = document.getElementById('error-message');
+    const recipesSection = document.getElementById('recipes-section');
+
+    // Display the loading indicator and hide any error messages
+    loadingIndicator.style.display = 'block';
+    errorMessage.style.display = 'none';
+
+    // Fetching data from the API
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Handle the case where no recipes were found
+            if (data.hits.length === 0) {
+                errorMessage.textContent = 'No recipes found matching the criteria.';
+                errorMessage.style.display = 'block';
+                recipesSection.innerHTML = '';
+            } else {
+                // If recipes are found, display them
+                errorMessage.style.display = 'none';
+                displayRecipes(data.hits);
+            }
+            // Hide the loading indicator
+            loadingIndicator.style.display = 'none';
+        })
+        .catch(error => {
+            // Handle any errors during the fetch
+            console.error('Fetch error:', error);
+            errorMessage.textContent = 'Failed to load recipes. Please try again.';
+            errorMessage.style.display = 'block';
+            recipesSection.innerHTML = '';
+            loadingIndicator.style.display = 'none';
+        });
 }
 ```
 
 ### Modal for Ingredients Display
 ```javascript
-function showModal(content) {
+// Function to show a modal with ingredients list
+function showModal(ingredients) {
+    // Splitting the ingredients string into an array and converting it into list items
+    const ingredientList = ingredients.split(', ').map(item => `<li>${item}</li>`).join('');
+    // Creating a new modal element
     const modal = document.createElement('div');
     modal.className = 'modal';
     modal.innerHTML = `
         <div class="modal-content">
             <span class="close">&times;</span>
-            ${content}
+            <ul class="ingredient-list">${ingredientList}</ul>
         </div>
     `;
+    // Adding the modal to the document
     document.body.appendChild(modal);
-    gsap.fromTo('.modal-content', { scale: 0.8, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.5 });
+    // Making the modal visible
+    modal.style.display = 'block'; 
+
+    // Animating the modal content's appearance
+    gsap.fromTo('.modal-content', {
+        scale: 0.8, // starting scale
+        autoAlpha: 0 // starting opacity
+    }, {
+        scale: 1, // end scale
+        autoAlpha: 1, // end opacity
+        duration: 0.5, // duration of the animation
+        ease: "power2.out" // easing function
+    });
+
+    // Event listener for the close button
+    modal.querySelector('.close').onclick = function() {
+        // Animate and remove the modal content on close
+        gsap.to('.modal-content', {
+            autoAlpha: 0, // end opacity
+            scale: 0.8, // end scale
+            duration: 0.5, // duration of the animation
+            ease: "power2.in", // easing function
+            onComplete: function() {
+                modal.style.display = 'none'; // Hide the modal
+                document.body.removeChild(modal); // Remove the modal from the DOM
+            }
+        });
+    };
+
+    // Event listener to close the modal when clicking outside of it
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            gsap.to('.modal-content', {
+                autoAlpha: 0, // end opacity
+                scale: 0.8, // end scale
+                duration: 0.5, // duration of the animation
+                ease: "power2.in", // easing function
+                onComplete: function() {
+                    modal.style.display = 'none'; // Hide the modal
+                    document.body.removeChild(modal); // Remove the modal from the DOM
+                }
+            });
+        }
+    };
 }
 ```
 
