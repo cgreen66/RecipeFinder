@@ -1,50 +1,69 @@
-Final Proposal for Customizable Recipe Finder
+# Christopher's Recipe Finder
 
-Background
-The Customizable Recipe Finder is a dynamic web application designed to simplify the culinary experience for individuals of all cooking levels. This project aims to address the common challenge of utilizing available kitchen ingredients effectively. Users can input their current ingredients, and the application will suggest a variety of recipes that they can create. The goal is to inspire culinary creativity, reduce food waste, and make home cooking more accessible and enjoyable.
+## Overview
+"Christopher's Recipe Finder" is a sophisticated web application designed for culinary enthusiasts. It streamlines the recipe discovery process by integrating user-friendly interfaces with real-time data fetching.
 
-Functionality & MVPs
-In the Customizable Recipe Finder, users will be able to:
+### Key Features
+- **Ingredient-Based Recipe Search**: Users can search for recipes based on specific ingredients.
+- **Advanced Filtering Options**: Recipes can be filtered by meal type and health labels.
+- **Interactive Recipe Cards**: Concise summary of each recipe, including images and source details.
+- **Comprehensive Nutritional Information**: Detailed breakdown of macronutrients available in a modal.
+- **Responsive Design**: Ensures a seamless user experience across various devices.
 
-1. Input Ingredients: Enter ingredients they have on hand to find suitable recipes.
-2. View Recipe Suggestions: Browse through a list of recipes that can be made with the entered ingredients.
-3. Access Detailed Recipes: Click on any recipe to view detailed instructions and additional ingredient requirements.
-4. Filter Recipes: Use filters to narrow down recipe suggestions based on dietary preferences or cuisine types.
-5. Save Favorite Recipes: Option to save and easily access favorite recipes for future reference.
+## Technologies
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript.
+- **Animations**: GreenSock Animation Platform (GSAP) for UI animations.
+- **API Integration**: Real-time recipe data fetched from Edamam API.
 
-In addition, this project will include:
+## User Interface Highlights
+- **Interactive Search Bar**: Autocomplete functionality for enhanced user experience.
+- **Recipe Cards**: Attractive visuals with direct links to cooking instructions.
+- **Nutritional Information Modals**: User-friendly presentation of comprehensive nutritional data.
 
-- User-Friendly Interface: A clean, intuitive interface that makes navigation and interaction straightforward.
-- Comprehensive README: Detailed documentation providing clear instructions, project overview, and technical details.
+## Code Examples
 
-Technologies, Libraries, APIs
-This project will be implemented with the following technologies:
+### Dynamic Recipe Search Functionality
+```javascript
+function fetchRecipes(query, health, mealType, cuisineType) {
+    const apiUrl = 'https://api.edamam.com/api/recipes/v2';
+    const apiParams = new URLSearchParams({ q: query, app_id: apiId, app_key: apiKey, type: 'public', health, mealType, cuisineType });
 
-- HTML/CSS/JavaScript: For the core frontend development.
-- Recipe API: Integration with a recipe API to fetch various recipes based on user input.
-- Webpack: To bundle and transpile the JavaScript code, managing dependencies efficiently.
-- Canvas API (Optional): If time allows, Canvas will be used to add interactive elements like ingredient selection or dynamic recipe visualization.
+    fetch(`${apiUrl}?${apiParams}`)
+        .then(response => response.json())
+        .then(data => displayRecipes(data.hits))
+        .catch(error => console.error('Fetch error:', error));
+}
+```
 
-Implementation Timeline
+### Modal for Ingredients Display
+```javascript
+function showModal(content) {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            ${content}
+        </div>
+    `;
+    document.body.appendChild(modal);
+    gsap.fromTo('.modal-content', { scale: 0.8, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.5 });
+}
+```
 
-- Thursday : Project setup including Webpack configuration. Establish the basic frontend layout and start integrating the recipe API.
-- Friday Afternoon & Weekend: Develop the core functionality, enabling users to input ingredients and view recipe suggestions.
-- Monday: Implement the filter functionality and detailed recipe views. Begin work on saving favorite recipes.
-- Tuesday: Finalize all MVP features, ensure robustness, and start adding Canvas enhancements if time permits.
-- Wednesday Morning: Final testing, debugging, and deployment to GitHub Pages.
+## Future Implementations
 
-Wireframes
-The layout will include:
+- **Recipe Customization**: Modify recipes based on ingredients or dietary restrictions.
+- **User Accounts and Recipe Saving**: Save favorite recipes and create cookbooks.
+- **Data Visualization**: D3.js or similar for presenting data.
+- **Community Features**: Share and rate recipes.
+- **Mobile App**: Development of a mobile application for enhanced accessibility.
+- **Multi-Language Support**: Expanding reach by supporting multiple languages.
 
-- A search section for ingredient input.
-- A display area for recipe suggestions.
-- Detailed view sections for selected recipes.
-- Filter options for dietary preferences.
-- Navigation links to GitHub, LinkedIn, and an About modal.
+## Contribution & Feedback
 
-Bonus Features
-Possible future enhancements:
+Contributions and feedback are encouraged. Please refer to our contribution guidelines for more details.
 
-- Canvas Enhancements: Interactive features for recipe selection and visualization.
-- Social Sharing: Ability to share favorite recipes on social media.
-- Community Features: Option for users to submit their own recipes and tips. -->
+## Contact
+
+For inquiries, contact [Christopher Green](<christophergreennyc@gmail.com>).

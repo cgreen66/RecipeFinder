@@ -115,7 +115,7 @@ function fetchRecipes(query, health, mealType, cuisineType) {
             if (data.hits.length === 0) {
                 errorMessage.textContent = 'No recipes found matching the criteria.';
                 errorMessage.style.display = 'block';
-                recipesSection.innerHTML = ''; // Clear previous recipes
+                recipesSection.innerHTML = '';
             } else {
                 errorMessage.style.display = 'none';
                 displayRecipes(data.hits);
@@ -309,3 +309,69 @@ function formatMacronutrients(macronutrients) {
     content += '</ul>';
     return content;
 }
+
+function showHelpModal() {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="help-content">
+                <h2>How to Use Christopher's Recipe Finder</h2>
+                <p>
+                1. Search Recipes: Enter ingredients in the search bar and apply filters for meal type and health labels. Click "Search" to find recipes.<br>
+                2. Explore Recipes: Browse the recipe cards to view brief details. Click "View Recipe" for full instructions on the original recipe page.<br>
+                3. Ingredients & Nutrition: Click "Ingredients" on a recipe card for a list of ingredients. Click "Macronutrients" for nutritional information.<br>
+                4. Reset Search: Use the "Clear" button to reset the search fields and start anew.<br><br>
+                Need Assistance? Reach out for more help or information. Enjoy discovering recipes with Christopher's Recipe Finder!
+                </p>
+                <!-- Add more help content as needed -->
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    modal.style.display = 'block'; // Set display to block before animation starts
+
+    // Animate modal content appearance with GSAP
+    gsap.fromTo('.modal-content', {
+        scale: 0.8,
+        autoAlpha: 0
+    }, {
+        scale: 1,
+        autoAlpha: 1,
+        duration: 0.5,
+        ease: "power2.out"
+    });
+
+    // Close button click event
+    modal.querySelector('.close').onclick = function() {
+        gsap.to('.modal-content', {
+            autoAlpha: 0,
+            scale: 0.8,
+            duration: 0.5,
+            ease: "power2.in",
+            onComplete: function() {
+                modal.style.display = 'none'; // Hide the modal after the animation
+                document.body.removeChild(modal); // Remove the modal from the DOM
+            }
+        });
+    };
+
+    // Clicking outside the modal content to close
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            gsap.to('.modal-content', {
+                autoAlpha: 0,
+                scale: 0.8,
+                duration: 0.5,
+                ease: "power2.in",
+                onComplete: function() {
+                    modal.style.display = 'none'; // Hide the modal after the animation
+                    document.body.removeChild(modal); // Remove the modal from the DOM
+                }
+            });
+        }
+    };
+}
+
+document.getElementById('help-button').addEventListener('click', showHelpModal);
