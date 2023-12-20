@@ -15,7 +15,7 @@ Explore a wide variety of delicious recipes with Christopher's Recipe Finder. Tr
 - **Responsive Design**: Ensures a seamless user experience across various devices.
 
 ## Technologies
-- **Frontend**: HTML5, CSS3, Vanilla JavaScript.
+- **Frontend**: HTML5, SCSS, Vanilla JavaScript (compiled to CSS3 for production).
 - **Animations**: GreenSock Animation Platform (GSAP) for UI animations.
 - **API Integration**: Real-time recipe data fetched from Edamam API.
 
