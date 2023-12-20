@@ -170,4 +170,5 @@ function showModal(ingredients) {
 
 ## Contact
 
-For inquiries, contact [Christopher Green](<christophergreennyc@gmail.com>).
+For inquiries, contact [Christopher Green](mailto:christophergreennyc@gmail.com).
+
