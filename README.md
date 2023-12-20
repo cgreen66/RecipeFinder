@@ -60,10 +60,6 @@ function showModal(content) {
 - **Mobile App**: Development of a mobile application for enhanced accessibility.
 - **Multi-Language Support**: Expanding reach by supporting multiple languages.
 
-## Contribution & Feedback
-
-Contributions and feedback are encouraged. Please refer to our contribution guidelines for more details.
-
 ## Contact
 
 For inquiries, contact [Christopher Green](<christophergreennyc@gmail.com>).
