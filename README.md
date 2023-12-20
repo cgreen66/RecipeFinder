@@ -1,5 +1,7 @@
 # Christopher's Recipe Finder
 
+![Christopher's Recipe Finder Interface](Screenshot 2023-12-20 at 2.00.01 PM.png)
+
 Explore a wide variety of delicious recipes with Christopher's Recipe Finder. Try it out here: [Christopher's Recipe Finder Live Site](https://cgreen66.github.io/RecipeFinder/)
 
 ## Overview
